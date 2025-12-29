@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiew Kai Ka - New Year Feedback</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* ตั้งค่าฟอนต์หลักของหน้าเว็บ */
+        body { font-family: 'Prompt', sans-serif; background-color: #f0fdf4; }
+        
+        /* สไตล์สำหรับการ์ดแบบกระจก (Glassmorphism) */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(22, 163, 74, 0.1);
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* เอฟเฟกต์สำหรับดาวให้คะแนน */
+        .rating-star { cursor: pointer; transition: transform 0.2s, color 0.2s; }
+        .rating-star:hover { transform: scale(1.2); }
+        .rating-star.active { color: #f59e0b; /* สีเหลืองทอง */ }
+        
+        /* สไตล์ปุ่มตัวเลือก (Choice Button) */
+        .choice-btn {
+            transition: all 0.3s ease;
+            border: 1px solid #e5e7eb;
+        }
+        .choice-btn:hover { border-color: #16a34a; background-color: #f0fdf4; }
+        .choice-btn.selected {
+            background-color: #16a34a; /* สีเขียวเมื่อถูกเลือก */
+            color: white;
+            border-color: #16a34a;
+            box-shadow: 0 4px 6px -1px rgba(22, 163, 74, 0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center py-10 px-4 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
+
+    <div class="max-w-xl w-full glass-card rounded-3xl overflow-hidden p-8 relative">
+        
+        <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-green-400 to-green-700"></div>
+
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-green-800 mb-2">Food Feedback</h1>
+            <p class="text-gray-500 text-sm">มื้อพิเศษต้อนรับปีใหม่จากร้าน "เขียวไข่กา แจ้งวัฒนะ"</p>
+        </div>
+
+        <form id="feedbackForm" class="space-y-6">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1 uppercase tracking-wide">ชื่อ-นามสกุล</label>
+                    <input type="text" id="employeeName" required 
+                        class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 outline-none transition" 
+                        placeholder="ระบุชื่อของคุณ">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1 uppercase tracking-wide">แผนก</label>
+                    <select id="department" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 outline-none transition">
+                        <option value="General">เลือกแผนก...</option>
+                        <option value="HR">HR / Admin</option>
+			<option value="Accounting">บัญชี/การเงิน</option>
+                        <option value="Sales">Sales / Marketing</option>
+                        <option value="IT">IT / Dev</option>
+                        <option value="Operations">Operations</option>
+                        <option value="Management">Management</option>
+                    </select>
+                </div>
+            </div>
+
+            <hr class="border-dashed border-gray-200">
+
+            <div class="grid grid-cols-2 gap-6">
+                <div class="text-center">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">รสชาติอาหาร</label>
+                    <div class="flex justify-center gap-1 text-2xl text-gray-300" id="tasteContainer">
+                        </div>
+                    <input type="hidden" id="tasteRating" value="0">
+                </div>
+                <div class="text-center">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">แพ็คเกจจิ้ง</label>
+                    <div class="flex justify-center gap-1 text-2xl text-gray-300" id="pkgContainer">
+                        </div>
+                    <input type="hidden" id="pkgRating" value="0">
+                </div>
+            </div>
+
+            <div class="space-y-4 bg-green-50/50 p-5 rounded-2xl border border-green-100">
+                
+                <div>
+                    <label class="block text-sm font-medium text-green-800 mb-2"><i class="fas fa-utensils mr-2"></i>ปริมาณอาหาร</label>
+                    <div class="grid grid-cols-3 gap-3">
+                        <button type="button" onclick="selectChoice('portion', 'Little')" class="choice-btn portion-btn px-3 py-2 rounded-lg text-sm">น้อยไป</button>
+                        <button type="button" onclick="selectChoice('portion', 'Good')" class="choice-btn portion-btn px-3 py-2 rounded-lg text-sm">กำลังดี</button>
+                        <button type="button" onclick="selectChoice('portion', 'TooMuch')" class="choice-btn portion-btn px-3 py-2 rounded-lg text-sm">เยอะไป</button>
+                    </div>
+                    <input type="hidden" id="portionVal" required>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-green-800 mb-2"><i class="fas fa-pepper-hot mr-2"></i>ความเผ็ด/รสชาติ</label>
+                    <div class="grid grid-cols-3 gap-3">
+                        <button type="button" onclick="selectChoice('spicy', 'Bland')" class="choice-btn spicy-btn px-3 py-2 rounded-lg text-sm">จืด/อ่อนไป</button>
+                        <button type="button" onclick="selectChoice('spicy', 'Good')" class="choice-btn spicy-btn px-3 py-2 rounded-lg text-sm">กลมกล่อม</button>
+                        <button type="button" onclick="selectChoice('spicy', 'TooHot')" class="choice-btn spicy-btn px-3 py-2 rounded-lg text-sm">เผ็ด/จัดเกิน</button>
+                    </div>
+                    <input type="hidden" id="spicyVal" required>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-green-800 mb-2">
+                        <i class="fas fa-shopping-cart mr-2"></i>หากต้องสั่งทานเอง จะเลือกสั่งร้านนี้ไหม?
+                    </label>
+                    <div class="flex gap-4">
+                        <label class="flex-1 cursor-pointer group">
+                            <input type="radio" name="repurchase" value="Yes" class="peer sr-only">
+                            <div class="p-3 rounded-lg border border-gray-200 text-center text-gray-500 
+                                        peer-checked:bg-green-600 peer-checked:text-white peer-checked:border-green-600 
+                                        group-hover:border-green-400 transition shadow-sm">
+                                <i class="fas fa-check mr-1"></i> สั่งแน่นอน
+                            </div>
+                        </label>
+                        
+                        <label class="flex-1 cursor-pointer group">
+                            <input type="radio" name="repurchase" value="Maybe" class="peer sr-only">
+                            <div class="p-3 rounded-lg border border-gray-200 text-center text-gray-500 
+                                        peer-checked:bg-gray-500 peer-checked:text-white peer-checked:border-gray-500 
+                                        group-hover:border-gray-400 transition shadow-sm">
+                                <i class="fas fa-question mr-1"></i> ขอคิดดูก่อน
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">เมนูที่ประทับใจที่สุด</label>
+                <select id="favDish" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 outline-none text-sm">
+                    <option value="" disabled selected>-- เลือกเมนู --</option>
+                    <optgroup label="แกง (Curry/Soup)">
+                        <option value="DuckCurry">แกงเผ็ดเป็ดย่างผลไม้</option>
+                        <option value="Palo">ไข่พะโล้</option>
+                        <option value="YellowCurry">แกงเหลืองปลากระพง</option>
+                        <option value="Runjuan">แกงรัญจวน (เนื้อ/หมู/ไก่)</option>
+                    </optgroup>
+                    <optgroup label="ผัด (Stir Fried)">
+                        <option value="Catfish">ผัดพริกขิงปลาดุกฟู</option>
+                        <option value="CrispyPork">ผัดพริกขิงหมูกรอบ</option>
+                        <option value="LotusStem">สายบัวผัดกะปิใส่หมู</option>
+                        <option value="Basil">กะเพรา (เนื้อ/หมู/ไก่)</option>
+                    </optgroup>
+                    <optgroup label="ของเคียง (Side)">
+                        <option value="Melinjo">ใบเหลียงผัดไข่</option>
+                        <option value="Wings">ปีกไก่ทอด</option>
+                        <option value="MakwaenPork">หมูทอดมะแขว่น</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <div>
+                <textarea id="suggestion" rows="2" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 outline-none text-sm" placeholder="ข้อเสนอแนะเพิ่มเติม..."></textarea>
+            </div>
+
+            <button type="submit" class="w-full bg-gradient-to-r from-green-700 to-green-600 hover:from-green-800 hover:to-green-700 text-white font-bold py-3.5 rounded-xl shadow-lg transform active:scale-95 transition duration-200">
+                ส่งข้อมูล
+            </button>
+        </form>
+    </div>
+
+    <script>
+        // --- CONFIGURATION ---
+        
+        // [User Link Inserted] URL ของ Google Apps Script ของคุณ
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzVkmL8D8FSVWrViURptL4RGd3CjcEjQiHd9P5AM6FJ6l3Cf4GmEHhBJJsxCHKhEfQz/exec';
+
+        // --- UI LOGIC FUNCTIONS ---
+
+        /**
+         * Initialize Star Rating System
+         * สร้างดาวและผูก Event Listener ให้กับดาวแต่ละดวง
+         * @param {string} containerId - ID ของ element ที่จะใส่ดาว
+         * @param {string} inputId - ID ของ input hidden ที่เก็บค่าคะแนน
+         */
+        function initRating(containerId, inputId) {
+            const container = document.getElementById(containerId);
+            const input = document.getElementById(inputId);
+            
+            // Loop สร้างดาว 5 ดวง
+            for (let i = 1; i <= 5; i++) {
+                const star = document.createElement('i');
+                star.className = 'fas fa-star rating-star text-gray-200'; // เริ่มต้นสีเทา
+                
+                // เมื่อกดที่ดาว ให้บันทึกค่าและเปลี่ยนสี
+                star.onclick = () => {
+                    input.value = i; 
+                    updateStarVisuals(container, i); 
+                };
+                
+                container.appendChild(star);
+            }
+        }
+
+        /**
+         * Update Star Colors
+         * เปลี่ยนสีดาวตามคะแนนที่เลือก (สีเหลือง = Active / สีเทา = Inactive)
+         * @param {HTMLElement} container - Container ของดาว
+         * @param {number} score - คะแนนที่เลือก
+         */
+        function updateStarVisuals(container, score) {
+            const stars = container.children;
+            for (let i = 0; i < stars.length; i++) {
+                if (i < score) {
+                    stars[i].classList.remove('text-gray-200');
+                    stars[i].classList.add('active');
+                } else {
+                    stars[i].classList.add('text-gray-200');
+                    stars[i].classList.remove('active');
+                }
+            }
+        }
+
+        /**
+         * Handle Button Selection (Portion & Spiciness)
+         * จัดการการกดปุ่มเลือก Choice แบบ Single Select (เลือกได้แค่อันเดียว)
+         * @param {string} groupType - ประเภทกลุ่ม (portion หรือ spicy)
+         * @param {string} value - ค่าที่เลือก
+         */
+        window.selectChoice = function(groupType, value) {
+            // 1. อัปเดตค่าลงใน Hidden Input
+            const inputId = groupType === 'portion' ? 'portionVal' : 'spicyVal';
+            document.getElementById(inputId).value = value;
+
+            // 2. อัปเดต UI (เปลี่ยนสีปุ่ม)
+            const btnClass = groupType === 'portion' ? '.portion-btn' : '.spicy-btn';
+            const buttons = document.querySelectorAll(btnClass);
+            
+            // รีเซ็ตปุ่มทั้งหมดให้เป็นสีปกติก่อน
+            buttons.forEach(btn => btn.classList.remove('selected'));
+
+            // หาปุ่มที่ถูกกดแล้วเปลี่ยนสี
+            buttons.forEach(btn => {
+                if(btn.getAttribute('onclick').includes(`'${value}'`)) {
+                    btn.classList.add('selected');
+                }
+            });
+        };
+
+        // --- INITIALIZATION ---
+
+        /**
+         * Execute on DOM Ready
+         * เริ่มต้นทำงานเมื่อหน้าเว็บโหลดเสร็จ
+         */
+        document.addEventListener('DOMContentLoaded', () => {
+            initRating('tasteContainer', 'tasteRating');
+            initRating('pkgContainer', 'pkgRating');
+        });
+
+        // --- FORM SUBMISSION ---
+
+        /**
+         * Handle Form Submit
+         * รวบรวมข้อมูล ตรวจสอบความถูกต้อง และส่งข้อมูลไปยัง Google Sheet
+         */
+        document.getElementById('feedbackForm').addEventListener('submit', async (e) => {
+            e.preventDefault(); // ป้องกันการ Refresh หน้าจอ
+
+            // 1. รวบรวมข้อมูลจาก Form (Collect Data)
+            const formData = {
+                employee_name: document.getElementById('employeeName').value,
+                department: document.getElementById('department').value,
+                taste_rating: document.getElementById('tasteRating').value,
+                package_rating: document.getElementById('pkgRating').value,
+                portion_feedback: document.getElementById('portionVal').value,
+                spiciness_feedback: document.getElementById('spicyVal').value,
+                
+                // ดึงค่าจาก Radio Button
+                repurchase_intent: document.querySelector('input[name="repurchase"]:checked')?.value || 'NotSpecified',
+                
+                fav_dish: document.getElementById('favDish').value,
+                suggestion: document.getElementById('suggestion').value
+            };
+
+            // 2. ตรวจสอบข้อมูลเบื้องต้น (Validation)
+            if (formData.taste_rating == "0" || formData.portion_feedback == "") {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'ข้อมูลไม่ครบถ้วน',
+                    text: 'กรุณาให้คะแนนรสชาติและระบุปริมาณอาหารก่อนส่งครับ',
+                    confirmButtonColor: '#16a34a'
+                });
+                return;
+            }
+
+            // 3. แสดงสถานะกำลังส่ง (Loading State)
+            Swal.fire({
+                title: 'กำลังบันทึกข้อมูล...',
+                text: 'กรุณารอสักครู่',
+                allowOutsideClick: false,
+                didOpen: () => Swal.showLoading()
+            });
+
+            // 4. ส่งข้อมูลไปยัง Google Script (API Call)
+            try {
+                // ใช้ fetch แบบ no-cors เพื่อส่งข้อมูลข้าม Domain ไปยัง Google Script
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors', // จำเป็นต้องใช้ mode นี้สำหรับ Web App ที่เป็น Everyone
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                // จำลอง Delay เล็กน้อยเพื่อให้ UX ดูนุ่มนวล
+                await new Promise(resolve => setTimeout(resolve, 800));
+
+                // 5. แสดงผลสำเร็จ (Success State)
+                Swal.fire({
+                    icon: 'success',
+                    title: 'ขอบคุณครับ!',
+                    text: 'เราได้รับข้อมูลของคุณเรียบร้อยแล้ว',
+                    confirmButtonColor: '#16a34a'
+                }).then(() => {
+                    // รีโหลดหน้าจอเพื่อเคลียร์ค่า
+                    location.reload(); 
+                });
+
+            } catch (error) {
+                console.error("Error:", error);
+                Swal.fire({ 
+                    icon: 'error', 
+                    title: 'เกิดข้อผิดพลาด', 
+                    text: 'ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้ กรุณาลองใหม่อีกครั้ง' 
+                });
+            }
+        });
+    </script>
+</body>
+</html>
