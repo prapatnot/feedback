@@ -32,10 +32,6 @@
             border-color: #16a34a;
             box-shadow: 0 4px 6px -1px rgba(22, 163, 74, 0.3);
         }
-
-        /* ซ่อน Scrollbar สำหรับเมนูแนวนอน */
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="min-h-screen py-10 px-4 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] text-gray-800">
@@ -53,13 +49,13 @@
                 <h2 class="text-lg font-semibold text-gray-800 mb-4 border-b pb-2"><i class="fas fa-user text-green-600 mr-2"></i>ข้อมูลพนักงาน</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-600 mb-1">ชื่อ-นามสกุล</label>
+                        <label class="block text-sm font-medium text-gray-600 mb-1">ชื่อ-นามสกุล <span class="text-red-500">*</span></label>
                         <input type="text" id="employeeName" required 
                             class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition" 
                             placeholder="ระบุชื่อของคุณ">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-600 mb-1">แผนก</label>
+                        <label class="block text-sm font-medium text-gray-600 mb-1">แผนก <span class="text-red-500">*</span></label>
                         <select id="department" required class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition">
                             <option value="">-- เลือกแผนก --</option>
                             <option value="HR">HR / Admin</option>
@@ -77,7 +73,7 @@
                 <h2 class="text-lg font-semibold text-gray-800 mb-4 border-b pb-2"><i class="fas fa-utensils text-green-600 mr-2"></i>เมนูอาหารที่ได้รับ <span class="text-xs text-red-500 font-normal ml-2">*เลือกหมวดละ 1 เมนู</span></h2>
                 
                 <div class="mb-5">
-                    <label class="block text-sm font-medium text-amber-600 mb-2">แกง</label>
+                    <label class="block text-sm font-medium text-amber-600 mb-2">แกง <span class="text-red-500">*</span></label>
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
                         <label class="cursor-pointer"><input type="radio" name="menu_curry" value="แกงชะพลูปู" class="peer sr-only" required><div class="p-2 text-sm text-center border rounded-lg peer-checked:bg-amber-100 peer-checked:border-amber-500 peer-checked:text-amber-800 hover:bg-gray-50 transition">แกงชะพลูปู</div></label>
                         <label class="cursor-pointer"><input type="radio" name="menu_curry" value="พะโล้โบราณ" class="peer sr-only"><div class="p-2 text-sm text-center border rounded-lg peer-checked:bg-amber-100 peer-checked:border-amber-500 peer-checked:text-amber-800 hover:bg-gray-50 transition">พะโล้โบราณ</div></label>
@@ -88,7 +84,7 @@
                 </div>
 
                 <div class="mb-5">
-                    <label class="block text-sm font-medium text-orange-600 mb-2">ผัด</label>
+                    <label class="block text-sm font-medium text-orange-600 mb-2">ผัด <span class="text-red-500">*</span></label>
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
                         <label class="cursor-pointer"><input type="radio" name="menu_stirfry" value="ใบเหลียงผัดไข่" class="peer sr-only" required><div class="p-2 text-sm text-center border rounded-lg peer-checked:bg-orange-100 peer-checked:border-orange-500 peer-checked:text-orange-800 hover:bg-gray-50 transition">ใบเหลียงผัดไข่</div></label>
                         <label class="cursor-pointer"><input type="radio" name="menu_stirfry" value="พริกขิงปลาดุกฟู" class="peer sr-only"><div class="p-2 text-sm text-center border rounded-lg peer-checked:bg-orange-100 peer-checked:border-orange-500 peer-checked:text-orange-800 hover:bg-gray-50 transition">พริกขิงปลาดุกฟู</div></label>
@@ -98,7 +94,7 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-yellow-700 mb-2">ข้าว</label>
+                    <label class="block text-sm font-medium text-yellow-700 mb-2">ข้าว <span class="text-red-500">*</span></label>
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
                         <label class="cursor-pointer"><input type="radio" name="menu_rice" value="ข้าวผัดไข่" class="peer sr-only" required><div class="p-2 text-sm text-center border rounded-lg peer-checked:bg-yellow-100 peer-checked:border-yellow-500 peer-checked:text-yellow-800 hover:bg-gray-50 transition">ข้าวผัดไข่</div></label>
                         <label class="cursor-pointer"><input type="radio" name="menu_rice" value="ข้าวสวย" class="peer sr-only"><div class="p-2 text-sm text-center border rounded-lg peer-checked:bg-yellow-100 peer-checked:border-yellow-500 peer-checked:text-yellow-800 hover:bg-gray-50 transition">ข้าวสวย</div></label>
@@ -108,16 +104,16 @@
             </div>
 
             <div class="section-card">
-                <h2 class="text-lg font-semibold text-gray-800 mb-6 border-b pb-2"><i class="fas fa-star text-green-600 mr-2"></i>ความพึงพอใจ</h2>
+                <h2 class="text-lg font-semibold text-gray-800 mb-6 border-b pb-2"><i class="fas fa-star text-green-600 mr-2"></i>ความพึงพอใจ <span class="text-xs text-red-500 font-normal ml-2">*บังคับประเมินทุกข้อ</span></h2>
                 
                 <div class="grid grid-cols-2 gap-6 mb-8">
                     <div class="text-center">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">รสชาติอาหาร</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">รสชาติอาหาร <span class="text-red-500">*</span></label>
                         <div class="flex justify-center gap-1 text-3xl text-gray-200" id="tasteContainer"></div>
                         <input type="hidden" id="tasteRating" value="0">
                     </div>
                     <div class="text-center">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Packaging</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Packaging <span class="text-red-500">*</span></label>
                         <div class="flex justify-center gap-1 text-3xl text-gray-200" id="pkgContainer"></div>
                         <input type="hidden" id="pkgRating" value="0">
                     </div>
@@ -125,23 +121,23 @@
 
                 <div class="space-y-5">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">ปริมาณอาหาร</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">ปริมาณอาหาร <span class="text-red-500">*</span></label>
                         <div class="grid grid-cols-3 gap-2">
                             <button type="button" onclick="selectChoice('portion', 'Little')" class="choice-btn portion-btn px-2 py-2 rounded-lg text-sm bg-gray-50">น้อยไป</button>
                             <button type="button" onclick="selectChoice('portion', 'Good')" class="choice-btn portion-btn px-2 py-2 rounded-lg text-sm bg-gray-50">กำลังดี</button>
                             <button type="button" onclick="selectChoice('portion', 'TooMuch')" class="choice-btn portion-btn px-2 py-2 rounded-lg text-sm bg-gray-50">เยอะไป</button>
                         </div>
-                        <input type="hidden" id="portionVal" required>
+                        <input type="hidden" id="portionVal">
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">ความเผ็ด/รสชาติ</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">ความเผ็ด/รสชาติ <span class="text-red-500">*</span></label>
                         <div class="grid grid-cols-3 gap-2">
                             <button type="button" onclick="selectChoice('spicy', 'Bland')" class="choice-btn spicy-btn px-2 py-2 rounded-lg text-sm bg-gray-50">จืด/อ่อนไป</button>
                             <button type="button" onclick="selectChoice('spicy', 'Good')" class="choice-btn spicy-btn px-2 py-2 rounded-lg text-sm bg-gray-50">กลมกล่อม</button>
                             <button type="button" onclick="selectChoice('spicy', 'TooHot')" class="choice-btn spicy-btn px-2 py-2 rounded-lg text-sm bg-gray-50">เผ็ด/จัดเกิน</button>
                         </div>
-                        <input type="hidden" id="spicyVal" required>
+                        <input type="hidden" id="spicyVal">
                     </div>
                 </div>
             </div>
@@ -155,7 +151,7 @@
                 </div>
 
                 <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">หากต้องสั่งทานเอง จะเลือกสั่งร้านนี้ไหม?</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">หากต้องสั่งทานเอง จะเลือกสั่งร้านนี้ไหม? <span class="text-red-500">*</span></label>
                     <div class="flex gap-4">
                         <label class="flex-1 cursor-pointer group">
                             <input type="radio" name="repurchase" value="Yes" class="peer sr-only" required>
@@ -178,18 +174,17 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">แนบรูปภาพอาหาร (ถ้ามี)</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">แนบรูปภาพอาหาร <span class="text-red-500">*บังคับ (เลือกได้มากกว่า 1 รูป)</span></label>
                     <div class="flex items-center justify-center w-full">
-                        <label for="foodImage" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition overflow-hidden relative">
-                            <div class="flex flex-col items-center justify-center pt-5 pb-6" id="uploadPlaceholder">
-                                <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
-                                <p class="text-sm text-gray-500">คลิกเพื่ออัปโหลดรูปภาพ</p>
+                        <label for="foodImage" class="flex flex-col items-center justify-center w-full h-24 border-2 border-green-300 border-dashed rounded-lg cursor-pointer bg-green-50 hover:bg-green-100 transition relative">
+                            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                <i class="fas fa-cloud-upload-alt text-2xl text-green-600 mb-1"></i>
+                                <p class="text-sm text-green-700 font-medium" id="uploadPlaceholderText">คลิกเพื่อเลือกรูปภาพ</p>
                             </div>
-                            <img id="imagePreview" class="hidden absolute inset-0 w-full h-full object-cover" />
-                            <input id="foodImage" type="file" class="hidden" accept="image/*" onchange="previewImage(event)" />
+                            <input id="foodImage" type="file" class="hidden" accept="image/*" multiple onchange="previewImages(event)" />
                         </label>
                     </div>
-                    <p class="text-xs text-gray-400 mt-1 text-center" id="fileNameDisplay"></p>
+                    <div id="imagePreviewContainer" class="grid grid-cols-2 md:grid-cols-4 gap-2 mt-4"></div>
                 </div>
             </div>
 
@@ -200,11 +195,9 @@
     </div>
 
     <script>
-        // --- CONFIGURATION ---
-        // เปลี่ยนเป็น URL Web App ของคุณที่ Deploy ใหม่
+        // --- เปลี่ยนเป็น URL Web App ล่าสุดของคุณ ---
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzh0Ghfz5HW2lH2_K1hrCH3DKZmi3fdYqAM6aVCv09js_XsXf-o03LDJkhXIUxIOSmAZw/exec';
 
-        // --- UI LOGIC ---
         function initRating(containerId, inputId) {
             const container = document.getElementById(containerId);
             const input = document.getElementById(inputId);
@@ -240,29 +233,45 @@
             });
         };
 
-        // --- IMAGE PREVIEW & CONVERT TO BASE64 ---
-        function previewImage(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('uploadPlaceholder').style.display = 'none';
-                    const imgPreview = document.getElementById('imagePreview');
-                    imgPreview.src = e.target.result;
-                    imgPreview.style.display = 'block';
-                    document.getElementById('fileNameDisplay').textContent = file.name;
-                }
-                reader.readAsDataURL(file);
+        // --- ระบบ Preview รูปภาพหลายรูป ---
+        function previewImages(event) {
+            const container = document.getElementById('imagePreviewContainer');
+            const files = event.target.files;
+            container.innerHTML = ''; // เคลียร์รูปเก่าออก
+            
+            if (files.length > 0) {
+                document.getElementById('uploadPlaceholderText').textContent = `เลือกแล้ว ${files.length} รูป (คลิกเพื่อเปลี่ยน)`;
+                Array.from(files).forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.className = 'w-full h-24 object-cover rounded-lg border border-gray-200 shadow-sm';
+                        container.appendChild(img);
+                    }
+                    reader.readAsDataURL(file);
+                });
+            } else {
+                document.getElementById('uploadPlaceholderText').textContent = 'คลิกเพื่อเลือกรูปภาพ';
             }
         }
 
-        function getBase64(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = () => resolve(reader.result.split(',')[1]); // เอาเฉพาะส่วน data base64
-                reader.onerror = error => reject(error);
+        // ฟังก์ชันแปลงไฟล์เป็น Base64 ทั้งหมด (รองรับหลายไฟล์)
+        async function getBase64Files(files) {
+            const fileArray = Array.from(files);
+            const promises = fileArray.map(file => {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = () => resolve({
+                        base64: reader.result.split(',')[1],
+                        mimeType: file.type,
+                        name: file.name
+                    });
+                    reader.onerror = error => reject(error);
+                });
             });
+            return Promise.all(promises);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -274,69 +283,57 @@
         document.getElementById('feedbackForm').addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            // Validate Ratings
+            // 1. ตรวจสอบว่าประเมินความพึงพอใจครบถ้วนหรือไม่
             if (document.getElementById('tasteRating').value == "0" || 
                 document.getElementById('pkgRating').value == "0" ||
                 document.getElementById('portionVal').value == "" || 
                 document.getElementById('spicyVal').value == "") {
-                Swal.fire({ icon: 'warning', title: 'ข้อมูลไม่ครบถ้วน', text: 'กรุณาให้คะแนนดาวและเลือกตัวเลือกให้ครบถ้วนครับ', confirmButtonColor: '#16a34a' });
+                Swal.fire({ icon: 'warning', title: 'ประเมินไม่ครบถ้วน', text: 'กรุณาให้คะแนนดาวและเลือกความพึงพอใจให้ครบทุกข้อครับ', confirmButtonColor: '#16a34a' });
                 return;
             }
 
-            Swal.fire({ title: 'กำลังบันทึกข้อมูล...', text: 'หากมีรูปภาพอาจใช้เวลาสักครู่', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+            // 2. ตรวจสอบว่ามีการแนบรูปอย่างน้อย 1 รูปหรือไม่
+            const fileInput = document.getElementById('foodImage');
+            if (fileInput.files.length === 0) {
+                Swal.fire({ icon: 'warning', title: 'ลืมแนบรูปภาพ', text: 'กรุณาแนบรูปภาพอาหารอย่างน้อย 1 รูปครับ', confirmButtonColor: '#16a34a' });
+                return;
+            }
+
+            Swal.fire({ title: 'กำลังบันทึกข้อมูล...', text: 'กำลังอัปโหลดรูปภาพ อาจใช้เวลาสักครู่', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
 
             // ดึงค่า Radio Button ของเมนูอาหาร
             const getRadioValue = (name) => document.querySelector(`input[name="${name}"]:checked`)?.value || '';
 
-            // เตรียมข้อมูลรูปภาพ
-            let base64Image = "";
-            let mimeType = "";
-            let fileName = "";
-            const fileInput = document.getElementById('foodImage');
-            
-            if (fileInput.files.length > 0) {
-                const file = fileInput.files[0];
-                try {
-                    base64Image = await getBase64(file);
-                    mimeType = file.type;
-                    fileName = file.name;
-                } catch (error) {
-                    Swal.fire({ icon: 'error', title: 'เกิดข้อผิดพลาด', text: 'ไม่สามารถอ่านไฟล์รูปภาพได้' });
-                    return;
-                }
-            }
-
-            const formData = {
-                employee_name: document.getElementById('employeeName').value,
-                department: document.getElementById('department').value,
-                
-                // เมนูที่เลือก
-                menu_curry: getRadioValue('menu_curry'),
-                menu_stirfry: getRadioValue('menu_stirfry'),
-                menu_rice: getRadioValue('menu_rice'),
-
-                taste_rating: document.getElementById('tasteRating').value,
-                package_rating: document.getElementById('pkgRating').value,
-                portion_feedback: document.getElementById('portionVal').value,
-                spiciness_feedback: document.getElementById('spicyVal').value,
-                repurchase_intent: getRadioValue('repurchase'),
-                fav_dish: document.getElementById('favDish').value,
-                suggestion: document.getElementById('suggestion').value,
-
-                // ข้อมูลรูปภาพ
-                image_base64: base64Image,
-                image_mimeType: mimeType,
-                image_name: fileName
-            };
-
             try {
-                // ส่งเป็น Text/Plain เพราะ Google Apps Script จัดการ JSON จาก body ง่ายกว่าในบางกรณีของการ POST แบบ no-cors
+                // แปลงไฟล์ทั้งหมดเป็น Base64 Array
+                const imagesData = await getBase64Files(fileInput.files);
+
+                const formData = {
+                    employee_name: document.getElementById('employeeName').value,
+                    department: document.getElementById('department').value,
+                    
+                    menu_curry: getRadioValue('menu_curry'),
+                    menu_stirfry: getRadioValue('menu_stirfry'),
+                    menu_rice: getRadioValue('menu_rice'),
+
+                    taste_rating: document.getElementById('tasteRating').value,
+                    package_rating: document.getElementById('pkgRating').value,
+                    portion_feedback: document.getElementById('portionVal').value,
+                    spiciness_feedback: document.getElementById('spicyVal').value,
+                    repurchase_intent: getRadioValue('repurchase'),
+                    fav_dish: document.getElementById('favDish').value,
+                    suggestion: document.getElementById('suggestion').value,
+
+                    // ส่งชุดข้อมูลรูปภาพไปเป็น Array
+                    images: imagesData
+                };
+
                 const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
                     body: JSON.stringify(formData)
                 });
 
-                Swal.fire({ icon: 'success', title: 'ขอบคุณครับ!', text: 'เราได้รับข้อมูลของคุณเรียบร้อยแล้ว', confirmButtonColor: '#16a34a' }).then(() => {
+                Swal.fire({ icon: 'success', title: 'ขอบคุณครับ!', text: 'ส่งผลประเมินและอัปโหลดรูปภาพเรียบร้อยแล้ว', confirmButtonColor: '#16a34a' }).then(() => {
                     location.reload(); 
                 });
             } catch (error) {
